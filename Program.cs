@@ -65,7 +65,6 @@ public async Task SeriousBuildAndRunAsync()
     }
     else
     {
-        // 失敗：詳細なログを表示（本気モード）
         string logPath = Path.Combine(downloadsDir, "build_error.log");
         File.WriteAllText(logPath, $"STDOUT:\n{stdout}\n\nSTDERR:\n{stderr}");
         throw new Exception($"ビルド失敗。詳細はログを確認してください: {logPath}");
