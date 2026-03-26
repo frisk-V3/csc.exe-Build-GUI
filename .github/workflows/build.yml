@@ -1,0 +1,35 @@
+name: Ultimate C# Build Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # 手動実行も可能にする
+
+jobs:
+  build:
+    runs-on: windows-latest # csc.exe/dotnetを使うためWindows環境
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Publish (High Performance Build)
+        # -r win-x64: 64bit Windows専用に最適化
+        # -p:PublishSingleFile=true: 依存関係をすべて1つのEXEに詰め込む
+        run: |
+          dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ./publish
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Production-Binary
+          path: ./publish/*.exe
+          retention-days: 5 # サーバー容量を食わないよう5日で自動削除
