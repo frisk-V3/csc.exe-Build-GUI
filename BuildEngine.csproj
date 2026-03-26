@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF> <!-- GUI用。WinFormsならUseWindowsForms -->
+    
+    <!-- 本気の最適化設定 -->
+    <PublishSingleFile>true</PublishSingleFile> <!-- 1つのEXEに集約 -->
+    <SelfContained>false</SelfContained>        <!-- 実行環境に.NETがある前提で軽量化 -->
+    <ReadReadyToRun>true</ReadReadyToRun>       <!-- 起動速度の高速化 -->
+    <IncludeNativeLibrariesForSelfContained>true</IncludeNativeLibrariesForSelfContained>
+    
+    <!-- バージョン情報 -->
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+</Project>
